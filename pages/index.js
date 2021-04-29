@@ -18,8 +18,6 @@ export default function App(props) {
 
   shuffle(cards)
 
-  const [count, increment] = useSetCounter(0, cards.length-1)
-
   return (
     <div>
       <Head>
@@ -30,8 +28,7 @@ export default function App(props) {
 
       <main className="center h-screen">
         <h1 className="text-6xl font-extrabold text-center absolute w-screen top-0">Flash cards</h1>
-        <Card front={cards[count][0]} back={cards[count][1]}/>
-        <button className="unselectable px-4 p-2 m-4 text-blue-500 focus:text-white border-2 border-blue-500 bg-white focus:bg-blue-500 outline-none focus:outline-none transition duration-500 rounded w-auto" onClick={increment}>Next</button>
+        <Card cards={cards}/>
       </main>
     </div>
   )
@@ -61,18 +58,25 @@ function shuffle(array) {
 }
 
 function Card(props) {
+  const [key, increment] = useSetCounter(0, props.cards.length)
   const [front, changeSide] = useState(true)
 
-  let classes = "bg-gray-200 shadow-lg w-96 h-44 p-4 center transition-all duration-1000 "
+  let classes = "bg-gray-200 shadow-lg w-96 h-44 p-4 center transition-all duration-700 "
   if (!front) { classes = classes + "flip" }
 
-  let btnClasses = "text-bold text-3xl unselectable transition-all duration-1000 "
+  let btnClasses = "text-bold text-3xl unselectable transition-all duration-700 "
   if (!front) { btnClasses = btnClasses + "flip" }
 
   return (
-    <div className={classes} onClick={() => { changeSide(!front) }}>
-      <h2 className={btnClasses}>{front && props.front}{!front && props.back}</h2>
-    </div>
+    <>
+      <div className={classes} onClick={() => { changeSide(!front) }}>
+        <h2 className={btnClasses}>{front && props.cards[key][0]}{!front && props.cards[key][1]}</h2>
+      </div>
+      <button className="unselectable px-4 p-2 m-4 text-blue-500 focus:text-white border-2 border-blue-500 bg-white focus:bg-blue-500 outline-none focus:outline-none transition duration-500 rounded w-auto" onClick={() => {
+        increment()
+        changeSide(true)
+      }}>Next</button>
+    </>
   )
 }
 
