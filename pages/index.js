@@ -69,10 +69,10 @@ function Card(props) {
 
   if (front) {
     backClass = backClass + "opacity-0 delay-0"
-    frontClass = frontClass + "opacity-100 delay-500"
+    frontClass = frontClass + "opacity-100 delay-700"
   } else {
     frontClass = frontClass + "opacity-0 delay-0"
-    backClass = backClass + "opacity-100 delay-500"
+    backClass = backClass + "opacity-100 delay-700"
   }
 
   return (
