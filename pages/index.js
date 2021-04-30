@@ -26,7 +26,7 @@ export default function App(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="center h-screen">
+      <main className="center h-screen overflow-hidden">
         <h1 className="text-6xl font-extrabold text-center absolute w-screen top-0">Flash cards</h1>
         <Card cards={cards}/>
       </main>
