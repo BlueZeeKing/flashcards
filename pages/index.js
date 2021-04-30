@@ -61,16 +61,23 @@ function Card(props) {
   const [key, increment] = useSetCounter(0, props.cards.length)
   const [front, changeSide] = useState(true)
 
-  let classes = "bg-gray-200 shadow-lg w-96 h-44 p-4 center transition-all duration-700 "
-  if (!front) { classes = classes + "flip" }
+  let classes = "bg-gray-200 shadow-lg w-80 h-44 p-4 center transition-all duration-700 relative "
+  if (!front) { classes = classes + "flip " }
 
-  let btnClasses = "text-bold text-3xl unselectable transition-all duration-700 "
-  if (!front) { btnClasses = btnClasses + "flip" }
+  let frontClass = "transform leading-none text-center text-bold text-3xl unselectable transition-all delay-350 top-translate center-absolute ";
+  let backClass = "transform leading-none text-center text-bold text-3xl unselectable transition-all delay-350 center-absolute-flip center-absolute ";
+
+  if (front) {
+    backClass = backClass + "invisible"
+  } else {
+    frontClass = frontClass + "invisible"
+  }
 
   return (
     <>
       <div className={classes} onClick={() => { changeSide(!front) }}>
-        <h2 className={btnClasses}>{front && props.cards[key][0]}{!front && props.cards[key][1]}</h2>
+        <h2 className={frontClass}>{props.cards[key][0]}</h2>
+        <h2 className={backClass}>{props.cards[key][1]}</h2>
       </div>
       <button className="unselectable px-4 p-2 m-4 text-blue-500 focus:text-white border-2 border-blue-500 bg-white focus:bg-blue-500 outline-none focus:outline-none transition duration-500 rounded w-auto" onClick={() => {
         increment()
