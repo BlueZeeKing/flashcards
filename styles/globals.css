@@ -38,3 +38,30 @@
   transform-origin: center;
   transform: translate(-50%, -50%) rotateY(180deg);
 }
+
+.left-flipped {
+  transform: translate(calc(-50% + -100vw), -50%) rotateY(180deg);
+}
+
+.left {
+  transform: translate(calc(-50% + -100vw), -50%);
+}
+
+.right-flipped {
+  transform: translate(calc(-50% + 100vw), -50%) rotateY(180deg);
+}
+
+.right {
+  transform: translate(calc(-50% + 100vw), -50%);
+}
+
+.next-button {
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+* {
+    overflow: hidden !important;
+}
