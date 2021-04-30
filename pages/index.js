@@ -64,13 +64,13 @@ function Card(props) {
   let classes = "bg-gray-200 shadow-lg w-80 h-44 p-4 center transition-all duration-700 relative "
   if (!front) { classes = classes + "flip " }
 
-  let frontClass = "transform leading-none text-center text-bold text-3xl unselectable transition-all delay-350 top-translate center-absolute ";
-  let backClass = "transform leading-none text-center text-bold text-3xl unselectable transition-all delay-350 center-absolute-flip center-absolute ";
+  let frontClass = "transform leading-none text-center opacity-100 text-bold text-3xl unselectable transition-all top-translate center-absolute ";
+  let backClass = "transform leading-none text-center opacity-100 text-bold text-3xl delay-500 unselectable transition-all center-absolute-flip center-absolute ";
 
   if (front) {
-    backClass = backClass + "invisible"
+    backClass = backClass + "opacity-0"
   } else {
-    frontClass = frontClass + "invisible"
+    frontClass = frontClass + "opacity-0"
   }
 
   return (
