@@ -25,6 +25,7 @@ export default function App(props) {
         firebase.app(); // if already initialized, use that one
     }
     if (!firebase.auth().currentUser) {
+        console.log(firebase.auth().currentUser)
         var provider = new firebase.auth.GoogleAuthProvider();
 
         firebase.auth()
@@ -37,9 +38,7 @@ export default function App(props) {
                 var token = credential.accessToken;
                 // The signed-in user info.
                 var user = result.user;
-                // ...
-
-                setMsg('Successfully signed in')
+                // ..
             }).catch((error) => {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -48,8 +47,6 @@ export default function App(props) {
                 var email = error.email;
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
-
-                setMsg('Error signing in')
                 // ...
             });
     }
