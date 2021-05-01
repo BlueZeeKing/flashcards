@@ -1,0 +1,21 @@
+.grid-container:nth-child(1) {
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+}
+
+.grid-container:nth-child(2) {
+    border-bottom-width: 1px;
+}
+
+.grid-container:nth-child(3) {
+    border-right-width: 1px;
+}
+
+.grid-container:nth-child(5) {
+    border-right-width: 1px;
+    border-top-width: 1px;
+}
+
+.grid-container:nth-child(6) {
+    border-top-width: 1px;
+}

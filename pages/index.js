@@ -1,4 +1,4 @@
-const firebase = require("firebase");
+const firebase = require("firebase/app");
 require("firebase/firestore");
 
 import Head from 'next/head'
