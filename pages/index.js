@@ -56,13 +56,17 @@ function shuffle(array) {
 }
 
 function CardList(props) {
-  const [key, next, previous, increment] = useSetCounter(0, props.cards.length-1)
+  const [key, increment] = useSetCounter(0, props.cards.length-1)
 
   return (
     <>
       {props.cards.map((card, index) => {
         if (index > key - 2 && index < key + 2) {
           return <Card front={card[0]} back={card[1]} left={index < key} right={index > key} />
+        } else if (key == props.cards.length - 1 && index == 0) {
+          return <Card front={card[0]} back={card[1]} right />
+        } else if (key == 0 && index == props.cards.length - 1) {
+          return <Card front={card[0]} back={card[1]} left />
         }
       })}
       <button className="next-button unselectable px-4 p-2 text-blue-500 focus:text-white border-2 border-blue-500 bg-white focus:bg-blue-500 outline-none focus:outline-none transition duration-500 rounded w-auto" onClick={increment}>Next</button>
@@ -126,7 +130,7 @@ function useSetCounter(start, limit) {
     next = start
   }
 
-  return [count, next, previous, increment]
+  return [count, increment]
 }
 
 
