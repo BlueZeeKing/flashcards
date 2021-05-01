@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .unselectable {
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
@@ -66,6 +65,7 @@
 
 * {
     overflow: hidden !important;
+    z-index: -10;
 }
 
 .grid-item:nth-child(1) {
