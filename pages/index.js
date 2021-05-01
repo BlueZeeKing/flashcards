@@ -69,7 +69,7 @@ function CardList(props) {
           return <Card front={card[0]} back={card[1]} left />
         }
       })}
-      <button className="next-button unselectable px-4 p-2 text-blue-500 focus:text-white border-2 border-blue-500 bg-white focus:bg-blue-500 outline-none focus:outline-none transition duration-500 rounded w-auto" onClick={increment}>Next</button>
+      <button className="next-button unselectable px-8 p-2 text-blue-500 focus:text-white border-2 border-blue-500 bg-white focus:bg-blue-500 outline-none focus:outline-none transition duration-500 rounded w-auto" onClick={increment}>Next</button>
     </>
   )
 }
