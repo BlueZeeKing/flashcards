@@ -6,6 +6,7 @@ const _ = require('lodash');
 
 import Head from 'next/head'
 import { useState } from "react"
+import { forEach } from "lodash";
 
 export default function App(props) {
     const [msg, setMsg] = useMsg()
@@ -78,8 +79,8 @@ export default function App(props) {
 }
 
 function Form(props) {
-    const [cards, changeCardsInput] = useMultiTextInput(['yo', 'nosotros', 'tu', 'el', 'ellos'])
-    const [title, changeTitleInput] = useTextInputWithoutSlash()
+    const [cards, changeCardsInput, clear] = useMultiTextInput(['yo', 'nosotros', 'tu', 'el', 'ellos'])
+    const [title, changeTitleInput, clearTitle] = useTextInputWithoutSlash()
 
     return (
         <div className="center-absolute bg-gray-200 shadow-lg w-80 h-56 flex-col flex">
@@ -100,6 +101,9 @@ function Form(props) {
                     title: title,
                     cards: cards
                 })
+
+                clear()
+                clearTitle()
             }}>Create</button>
         </div>
     )
@@ -119,7 +123,15 @@ function useMultiTextInput(names) {
         setState(copy)
     }
 
-    return [state, change]
+    function clear() {
+        let stateCopy = _.cloneDeep(state)
+        Object.keys(stateCopy).forEach((key) => {
+            stateCopy[key] = ''
+        })
+        setState(stateCopy)
+    }
+
+    return [state, change, clear]
 }
 
 function useTextInputWithoutSlash() {
@@ -129,7 +141,11 @@ function useTextInputWithoutSlash() {
         setState(e.target.value.replace(/\//g, "-"))
     }
 
-    return [state, change]
+    function clear() {
+        setState('')
+    }
+
+    return [state, change, clear]
 }
 
 function useMsg() {
