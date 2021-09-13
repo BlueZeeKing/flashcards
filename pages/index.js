@@ -1,16 +1,18 @@
-const firebase = require("firebase");
-require("firebase/firestore");
+const contentful = require('contentful')
 
 import Head from 'next/head'
 import { useState } from "react"
+
+const pronouns = ['yo', 'tu', 'el', 'nosotros', 'ellas']
 
 export default function App(props) {
   let cards = []
 
   for (let i = 0; i < props.cards.length; i++) {
     let item = props.cards[i]
-    for (let pronoun = 0; pronoun < Object.keys(item.cards).length; pronoun++) {
-      cards.push([`${capitalizeFirstLetter(item.title)} ${capitalizeFirstLetter(Object.keys(item.cards)[pronoun])}`, capitalizeFirstLetter(item.cards[Object.keys(item.cards)[pronoun]])])
+    for (let pronounIndex = 0; pronounIndex < pronouns.length; pronounIndex++) {
+      let pronoun = pronouns[pronounIndex]
+      cards.push([`${item.verb} ${capitalizeFirstLetter(pronoun)}`, item[pronoun]])
     }
   }
 
@@ -135,31 +137,18 @@ function useSetCounter(start, limit) {
 
 
 export async function getStaticProps(context) {
-  var firebaseConfig = {
-    apiKey: "AIzaSyBWdow9c513miZ7VuPuNTcRCqa9q7E_iTc",
-    authDomain: "spanish-notes-b9090.firebaseapp.com",
-    databaseURL: "https://spanish-notes-b9090-default-rtdb.firebaseio.com",
-    projectId: "spanish-notes-b9090",
-    storageBucket: "spanish-notes-b9090.appspot.com",
-    messagingSenderId: "573999750087",
-    appId: "1:573999750087:web:29c87c35e2c80cb5a817e2"
-  };
+  const client = contentful.createClient({
+    space: '4qeqv0lvff66',
+    accessToken: process.env.API_KEY
+  })
 
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig)
-  } else {
-    firebase.app(); // if already initialized, use that one
-  }
-
-
-  const snapshot = await firebase.firestore().collection('cards').get()
+  const response = await client.getEntries()
 
   return {
     props: {
-      cards: snapshot.docs.map(doc => ({
-        title: doc.id,
-        cards: doc.data()
-      }))
+      cards: response.items.map((item) => {
+        return item.fields
+      })
     }
   }
 }
