@@ -149,6 +149,7 @@ export async function getStaticProps(context) {
       cards: response.items.map((item) => {
         return item.fields
       })
-    }
+    },
+    revalidate: 3000
   }
 }
