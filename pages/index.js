@@ -59,10 +59,11 @@ function shuffle(array) {
 }
 
 function CardList(props) {
-  const [key, increment] = useSetCounter(0, props.cards.length-1)
+  const [key, increment, decrement] = useSetCounter(0, props.cards.length-1)
 
   const handlers = useSwipeable({
     onSwipedLeft: increment,
+    onSwipedRight: decrement,
     delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
     preventDefaultTouchmoveEvent: true,  // call e.preventDefault *See Details*
     trackTouch: true,                     // track touch input
@@ -132,6 +133,14 @@ function useSetCounter(start, limit) {
     }
   }
 
+  function decrement() {
+    if (count == 0) {
+      setCount(limit)
+    } else {
+      setCount(count - 1)
+    }
+  }
+
   let previous = count-1
   let next = count+1
 
@@ -142,7 +151,7 @@ function useSetCounter(start, limit) {
     next = start
   }
 
-  return [count, increment]
+  return [count, increment, decrement]
 }
 
 
