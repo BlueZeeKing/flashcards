@@ -2,6 +2,7 @@ const contentful = require('contentful')
 
 import Head from 'next/head'
 import { useState } from "react"
+import { useSwipeable } from 'react-swipeable';
 
 const pronouns = ['yo', 'tu', 'el', 'nosotros', 'ellas']
 
@@ -60,11 +61,20 @@ function shuffle(array) {
 function CardList(props) {
   const [key, increment] = useSetCounter(0, props.cards.length-1)
 
+  const handlers = useSwipeable({
+    onSwiped: increment,
+    delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
+    preventDefaultTouchmoveEvent: true,  // call e.preventDefault *See Details*
+    trackTouch: true,                     // track touch input
+    trackMouse: true,                    // track mouse input
+    rotationAngle: 0,                     // set a rotation angle
+  });
+
   return (
     <>
       {props.cards.map((card, index) => {
         if (index > key - 2 && index < key + 2) {
-          return <Card front={card[0]} back={card[1]} left={index < key} right={index > key} key={card[0]} />
+          return <Card swipeHandlers={handlers} front={card[0]} back={card[1]} left={index < key} right={index > key} key={card[0]} />
         } else if (key == props.cards.length - 1 && index == 0) {
           return <Card front={card[0]} back={card[1]} right key={card[0]} />
         } else if (key == 0 && index == props.cards.length - 1) {
@@ -79,7 +89,7 @@ function CardList(props) {
 function Card(props) {
   const [front, changeSide] = useState(true)
 
-  let classes = "center-absolute bg-gray-200 shadow-lg w-80 h-44 p-4 center transition-all duration-700 relative "
+  let classes = "z-20 center-absolute bg-gray-200 shadow-lg w-80 h-44 p-4 center transition-all duration-700 relative "
   if (!front) { classes = classes + "center-absolute-flip " }
 
   let frontClass = "leading-none text-center text-bold text-3xl unselectable transition-all top-translate center-absolute ";
@@ -104,7 +114,7 @@ function Card(props) {
   }
 
   return (
-    <div className={classes} onClick={() => { changeSide(!front) }}>
+    <div {...props.swipeHandlers} className={classes} onClick={() => { changeSide(!front) }}>
       <h2 suppressHydrationWarning className={frontClass}>{props.front}</h2>
       <h2 suppressHydrationWarning className={backClass}>{props.back}</h2>
     </div>
