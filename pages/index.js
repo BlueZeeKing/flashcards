@@ -157,7 +157,7 @@ function useSetCounter(start, limit) {
 
 export async function getStaticProps(context) {
   const client = contentful.createClient({
-    space: '4qeqv0lvff66',
+    space: '4qeqv0lvff66', // might switch to integration
     accessToken: process.env.API_KEY
   })
 
