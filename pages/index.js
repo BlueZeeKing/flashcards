@@ -62,7 +62,7 @@ function CardList(props) {
   const [key, increment] = useSetCounter(0, props.cards.length-1)
 
   const handlers = useSwipeable({
-    onSwiped: increment,
+    onSwipedLeft: increment,
     delta: 10,                            // min distance(px) before a swipe starts. *See Notes*
     preventDefaultTouchmoveEvent: true,  // call e.preventDefault *See Details*
     trackTouch: true,                     // track touch input
