@@ -64,11 +64,11 @@ function CardList(props) {
     <>
       {props.cards.map((card, index) => {
         if (index > key - 2 && index < key + 2) {
-          return <Card front={card[0]} back={card[1]} left={index < key} right={index > key} />
+          return <Card front={card[0]} back={card[1]} left={index < key} right={index > key} key={card[0]} />
         } else if (key == props.cards.length - 1 && index == 0) {
-          return <Card front={card[0]} back={card[1]} right />
+          return <Card front={card[0]} back={card[1]} right key={card[0]} />
         } else if (key == 0 && index == props.cards.length - 1) {
-          return <Card front={card[0]} back={card[1]} left />
+          return <Card front={card[0]} back={card[1]} left key={card[0]} />
         }
       })}
       <button className="next-button unselectable px-8 p-2 text-blue-500 focus:text-white border-2 border-blue-500 bg-white focus:bg-blue-500 outline-none focus:outline-none transition duration-500 rounded w-auto" onClick={increment}>Next</button>
@@ -105,8 +105,8 @@ function Card(props) {
 
   return (
     <div className={classes} onClick={() => { changeSide(!front) }}>
-      <h2 className={frontClass}>{props.front}</h2>
-      <h2 className={backClass}>{props.back}</h2>
+      <h2 suppressHydrationWarning className={frontClass}>{props.front}</h2>
+      <h2 suppressHydrationWarning className={backClass}>{props.back}</h2>
     </div>
   )
 }
