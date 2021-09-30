@@ -13,7 +13,11 @@ export default function App(props) {
     let item = props.cards[i]
     for (let pronounIndex = 0; pronounIndex < pronouns.length; pronounIndex++) {
       let pronoun = pronouns[pronounIndex]
-      cards.push([`${item.verb} ${capitalizeFirstLetter(pronoun)}`, item[pronoun]]) // first item is name and pronoun, second is conjugation
+      if (pronoun == 'tu') {
+        cards.push([`${item.verb} Tú`, item[pronoun]])
+      } else {
+        cards.push([`${item.verb} ${capitalizeFirstLetter(pronoun)}`, item[pronoun]])
+      }
     }
   }
 
